@@ -1,0 +1,18 @@
+You would think that C is the most annoying language to do a project like this
+in, you need to deal with a whole bunch of data structures and they interact
+a lot. It's not even like a game where you can get around to writing a hashmap
+implementation for something eventually... you need all this stuff immediately
+just for the program to do anything at all.
+
+However, a check of the git history will show a python version, a go version,
+there was a C++ version... I kept trying to design this damn datastructure and
+I just couldn't do it. Admittedly this suggests I am a simpleton, but
+regardless, the moment I gave it a little go in C suddenly I could pull it off.
+
+I think the reason is that the trouble I was having was that I had ideas but
+they were vague and questions would assail my mind and pull it apart from all
+angles. When you are writing in C and dealing with all that "low level bullshit"
+it means that you have to build your system up all the way up from the
+foundations as a collection of well defined pieces of functionality, and because
+of that, the more you write, the more resistant to vagueness your work
+becomes.

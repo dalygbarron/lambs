@@ -10,7 +10,16 @@
             ]
         },
         {
+            "name": "gameraTime",
+            "param": [
+                {"type": "gfx_vec2_t", "name": "target"},
+                {"type": "gfx_mat2_t", "name": "trans"},
+                {"type": "float", "name": "time"}
+            ]
+        },
+        {
             "name": "static",
+            "param": [],
             "defaults": ["draw"]
         }
     ],
@@ -23,6 +32,12 @@
         },
         {
             "name": "draw",
+            "param": [
+                {"type": "batch_t*", "name": "batch"}
+            ]
+        },
+        {
+            "name": "bunny",
             "param": [
                 {"type": "batch_t*", "name": "batch"}
             ]
