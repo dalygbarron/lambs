@@ -1,0 +1,31 @@
+{
+    "pref": "b",
+    "implGuard": "IMPL_GUARD",
+    "state": [
+        {
+            "name": "goThere",
+            "param": [
+                {"type": "gfx_vec2_t", "name": "target"},
+                {"type": "float", "name": "time"}
+            ]
+        },
+        {
+            "name": "static",
+            "defaults": ["draw"]
+        }
+    ],
+    "func": [
+        {
+            "name": "update",
+            "param": [
+                {"type": "float", "name": "delta"}
+            ]
+        },
+        {
+            "name": "draw",
+            "param": [
+                {"type": "batch_t*", "name": "batch"}
+            ]
+        }
+    ]
+}

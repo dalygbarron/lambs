@@ -1,0 +1,102 @@
+</ Generates a single header/implementation file for a pushdown automata system
+</ with a configurable set of states and functions that can be dispatched by
+</ the root object to the top state.
+</ the function implementations for a given state of course must be implemented
+</ yourself.
+
+</ Prefix to be added to all declarations.
+<{pref} SINGULAR ALPHANUM>
+
+</ This name will be given without prefix to a C preprocessor value which must
+</ be defined in order for the implementation to be used. Typical single header
+</ library pattern allowing the header to be included in multiple compilation
+</ units while implementation is given in only one.
+<{implGuard} SINGULAR ALPHANUM>
+
+</ States that can be pushed to the automata.
+</ The Difference between params and fields is that params are required
+</ to the state's push function, whereas fields are added to it's struct, but
+</ are given a default value.
+<{state}
+    <{name} SINGULAR ALPHANUM>
+    <{param}
+        <{name} SINGULAR ALPHANUM>
+        <{type} SINGULAR ALPHANUM>>
+    <{field}
+        <{name} SINGULAR ALPHANUM>
+        <{type} SINGULAR ALPHANUM>>
+    <{defaults} ALPHANUM>>
+
+</ Functions that will be constructed for each state and called universally by
+</ a single dispatch function
+<{func}
+    <{name} SINGULAR ALPHANUM>
+    <{param}
+        <{name} SINGULAR ALPHANUM>
+        <{type} SINGULAR ALPHANUM>>>
+
+</ validation stuff
+<?<<state.name>><<cReservedWord><!state.name can't be c reserved word>>
+
+</ Files to be included given without the "#include" part, so along the lines of
+</ "<gfx.h>" etc.
+<{include}>
+
+</ The pushdown automata is assumed to be a helper in managing the operation of
+</ some other type and so this is the name of that type.
+<{ctxType} SINGULAR ALPHANUM>
+
+#pragma once
+
+#include \<stddef.h>
+
+#include <include>
+
+typedef struct <ctxType> <pref>_ctx_t;
+
+// Structure containing the internal data of the <state.name> state.
+typedef struct {
+    <()state.param.type state.param.name;>
+    <()state.field.type state.field.name;>
+} <pref>_<state.name>_t;
+
+// Enumeration of all the state types.
+typedef enum {
+    <(,)<pref>_type_<state.name>
+} <pref>_type_e;
+
+// Max size of the stack
+#define <pref>_MAX_SIZE 16
+
+// Main stack structure
+typedef struct {
+    size_t n;
+    struct {
+        <pref>_type_e type;
+        union {
+            <()<pref>_<state.name>_t <state.name>_ctx;
+        }
+    } body[<pref>_MAX_SIZE];
+} <pref>_t;
+
+// Pushes the <state.name> state onto the given stack if there is room. Returns
+// true on success. The arguments are the state's params.
+bool <pref>_push_<state.name>(
+    <pref>_t *stack
+    <(), <state.param.type> <state.param.name>>
+);
+
+// <func.name> dispatch.
+void <pref>_<func.name>(
+    <pref>_ctx_t *ctx
+    <(), <state.param.type> <state.param.name>>
+);
+
+// <state.name> <func.name> function. Even states that rely on a default
+// implementation will have this function defined but you need not implement it
+// as one will be provided.
+void <pref>_<state.name>_<func.name>(
+    <pref>_ctx_t *ctx,
+    <pref>_<state.name>_t *body
+    <(,)<func.param.type> <func.param.name>>
+);

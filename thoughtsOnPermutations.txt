@@ -1,0 +1,12 @@
+Yeah I think you can tell by all the random text documents everywhere that I am
+finding this more difficult than I expected. Anyway I am gonna think about
+generating permutations once again.
+
+So, first we create a narrowed version of the dec tree with only the fields we
+care about right... Then we need to iterate over all permutations of that tree.
+
+A dec tree needs to have a way of knowing all the possible values that a given
+node can map to, and thus we probably do want to create a new tree for each
+permutation.
+
+I think a big
